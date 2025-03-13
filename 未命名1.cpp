@@ -2845,3 +2845,113 @@ DFSÊ¹ÓÃµÄÊ±ºòÈç¹ûÒª½øĞĞÓÅ»¯£¬¿ÉÓÃÊı×é½ÓÊÕÃ¿Ò»¸ö·µ»ØÖµ£¬È»ºóÔÚÆäËûµÄ·µ»Ø´¦ÏÈÅĞ¶ÏÕ
 
 stoi(string)ÄÜ½«string×ª»¯³ÉintÀàĞÍ£¬½ö½öÄÜ×ª»¯³ÉInt
 to_string(ÕûĞÎ)ÄÜ½«intºÍlonglong×ª»¯³Éstring 
+
+
+
+
+
+
+
+
+#include<bits/stdc++.h>
+using namespace std;
+#define int long long
+const int N=1e6+1;
+vector<int>arr;
+int brr[N];
+int b=0;
+signed main()
+{
+	int a;
+	int n=0;
+	int f=0;
+	int g;
+	memset(brr,0,sizeof(brr));
+	for(int i=2;i<=N;i++)
+	{
+		if(brr[i]==0)
+		{
+			arr.push_back(i);
+			a=i*(-1);
+			arr.push_back(a);
+			n++;
+		}
+		for(int j=i+i;j<=N;j+=i)
+		{
+			brr[j]=1;
+		}
+	}
+	sort(arr.begin(),arr.end());
+	int d;
+	cin>>b;
+	cin>>d;
+	const int c=b+1;
+	int crr[c];
+	int e;
+	for(int i=1;i<=b;i++)
+	{
+		cin>>e;
+		crr[i]=e;
+	}
+	int x,y,z;
+	for(int i=1;i<=d;i++)
+	{
+		cin>>x;
+		cin>>y;
+		cin>>z;
+		if(x==1)
+		{
+			for(int j=1;j<=b;j++)
+			{
+				if(j%y==0)
+				{
+					auto p=lower_bound(arr.begin(),arr.end(),crr[j]);
+					g=p-arr.begin();
+					if(g>=z)
+					{
+						if(*p==crr[j])
+						crr[j]=*(p-z);
+						else
+						crr[j]=*(p-z+1);
+						if(crr[j]<0)
+						crr[j]=0;
+					}
+					else
+					crr[j]=0;
+				}
+			}
+		}
+		if(x==2)
+		{
+			for(int j=1;j<=b;j++)
+			{
+				if(j%y==0)
+				{
+					int*p=lower_bound(arr,arr.end(),crr[j]);
+					if(*p==crr[j])
+					{
+						f=-1;
+					}
+					else 
+					f=0;
+					g=arr.end()-p+f;
+					if(g>=z)
+					{
+						if(*p==crr[j])
+						crr[j]=*(p+z);
+						else
+						crr[j]=*(p+z-1);
+					}
+					else
+					crr[j]=1;
+				}
+			}
+		}
+	}
+	for(int i=1;i<=b;i++)
+	{
+		cout<<crr[i]<<' ';
+	}
+	return 0;
+ }
+
